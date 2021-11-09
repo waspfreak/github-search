@@ -4,12 +4,15 @@ export const List = styled.li`
   display: flex;
   border-bottom: 1px solid #33728f;
   margin-bottom: 1em;
-  width: 95%;
+  padding-bottom: 1em;
+  //width: 95%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const ImageContainer = styled.div`
-    display: flex;
-    flex-direction: column;  
+  display: flex;
+  flex-direction: column;  
 `;
 
 export const ImageStyle = styled.img`
@@ -32,7 +35,7 @@ export const ContainerInfo = styled.div`
     flex-direction: column;
     text-align: initial;  
     margin-left: 1.5em; 
-    max-width: 75%; 
+    width: 90%; 
     p{
       margin: 0;
       color: #247599;

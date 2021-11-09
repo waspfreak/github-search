@@ -50,8 +50,6 @@ export const Item: React.FC<ItemProps> = ({
       <div className="favorites" title="save to favs">
         {children}
       </div>
-
-
     </List >
 
   );

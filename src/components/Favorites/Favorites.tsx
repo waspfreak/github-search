@@ -8,18 +8,7 @@ export const Favorites = () => {
     let x = getArray[i];
     favList[i] = JSON.parse(localStorage.getItem('favItem' + [x]) || '')
   }
-
-  // const title = Object.keys(favList[0])
-
   console.log(getArray);
-
-  // const id = Object.keys(favList[1]);
-  //setTest(favList[0].name);
-
-  //console.log(favList[0].name);
-
-  //console.log(favList.map((fav: any, i: number) => (`<p>${fav.id} ${fav.name}</p>`)))
-
 
   return (
     <div>

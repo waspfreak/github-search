@@ -69,12 +69,12 @@ function App() {
 
   return (
     <div className="App">
-      <h2><GoMarkGithub style={{ color: 'grey' }} />GITHUB Search Repositories</h2>
+      <h2><GoMarkGithub size="1.4em" style={{ color: '#33728f' }} />GITHUB Search Repositories</h2>
 
       <Tabs>
         <TabList>
           <Tab>List of repositories</Tab>
-          <Tab>Favorites <GoBookmark style={{ color: 'blue' }} /></Tab>
+          <Tab>Favorites <GoBookmark size="1.1em" style={{ color: '#33728f' }} /></Tab>
         </TabList>
 
         <TabPanel>
