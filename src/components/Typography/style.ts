@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const TextField = styled.div`
-  color: #666;
+  color: #ccc;
   h1{
     font-size: 1.4em;
   }

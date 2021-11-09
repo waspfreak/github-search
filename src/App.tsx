@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+//Ui Components
 import Item from "../src/components/Item/Item";
 import { Favorites } from '../src/components/Favorites/Favorites';
 import Header from '../src/components/Header/Header';
 import { Typography } from '../src/components/Typography/Typography';
-
-import { GoBookmark } from "react-icons/go";
-import { RiBookmarkLine, RiBookmarkFill } from "react-icons/ri";
+import { Button } from '../src/components/Button/Button';
+import { Filter } from '../src/components/Filter/Filter';
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+
+//Icons
+import { GoBookmark } from "react-icons/go";
+import { RiBookmarkLine, RiBookmarkFill } from "react-icons/ri";
+
 
 import './App.css';
 
@@ -69,18 +74,12 @@ function App() {
     }
   }
 
-  //Try get languages and filter
-  const getLanguage = language.map((item) => item.language);
-  const filtered = language.filter(({ language }, index) => !getLanguage.includes(language, index + 1))
-  const getLanguageArray = filtered.map((item) => (item.language));
-
 
   const filteredLanguage = (event: any) => {
     setSearchInput(event.target.value);
   }
 
   useEffect(() => {
-
     if (searchInput) {
       axios.get(URL_LANGUAGE)
         .then((result) => {
@@ -107,13 +106,7 @@ function App() {
         </TabList>
 
         <TabPanel>
-          {getLanguageArray.length !== 0 ?
-            getLanguageArray.map((item, i) =>
-              <button value={item} onClick={filteredLanguage}>
-                {item}
-              </button>
-            ) : ('')
-          }
+          <Filter onClick={filteredLanguage} />
 
           <ul>
             {repos.length !== 0 ?
