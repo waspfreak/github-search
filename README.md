@@ -20,6 +20,8 @@ have.
 
 Using Icons => https://ionicons.com/
 Style-components => 
+Tabs => https://github.com/reactjs/react-tabs
+
 
 ### `yarn start`
 

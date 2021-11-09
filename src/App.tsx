@@ -3,6 +3,9 @@ import axios from 'axios';
 
 import Item from "../src/components/Item/Item";
 
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+
 import './App.css';
 
 function App() {
@@ -26,30 +29,45 @@ function App() {
 
   return (
     <div className="App">
-      <ul>
-        {repos.length !== 0 ?
-          repos.map((item, i) =>
-            <>
-              <div key={i}>
-                <Item
-                  key={i}
-                  id={item.id}
-                  alt="string"
-                  src={item.owner.avatar_url}
-                  starts={item.stargazers_count}
-                  user={item.owner.login}
-                  description={item.description}
-                  name={item.name}
-                  url={item.html_url}
-                  language={item.language}
-                >
-                </Item>
-              </div>
-            </>
-          )
-          : <li>No items to show </li>
-        }
-      </ul>
+
+      <Tabs>
+        <TabList>
+          <Tab>List of repositories</Tab>
+          <Tab>Favorites</Tab>
+        </TabList>
+
+        <TabPanel>
+          <ul>
+            {repos.length !== 0 ?
+              repos.map((item, i) =>
+                <>
+                  <div key={i}>
+                    <Item
+                      key={i}
+                      id={item.id}
+                      alt="string"
+                      src={item.owner.avatar_url}
+                      starts={item.stargazers_count}
+                      user={item.owner.login}
+                      description={item.description}
+                      name={item.name}
+                      url={item.html_url}
+                      language={item.language}
+                    >
+                    </Item>
+                  </div>
+                </>
+              )
+              : <li>No items to show </li>
+            }
+          </ul>
+        </TabPanel>
+        <TabPanel>
+          <h2> Favorites repositories  </h2>
+        </TabPanel>
+      </Tabs>
+
+
     </div>
   );
 }
