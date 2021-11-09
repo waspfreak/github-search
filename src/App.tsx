@@ -17,7 +17,7 @@ import './App.css';
 function App() {
 
   const [repos, setRepos] = useState<any[]>([]);
-  const [searchInput, setSearchInput] = useState(repos);
+  const [searchInput, setSearchInput] = useState();
   const [language, setLanguage] = useState(repos);
   const [favorites, setFavorites] = useState([] as Array<number>);
   const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
@@ -74,19 +74,25 @@ function App() {
   const filtered = language.filter(({ language }, index) => !getLanguage.includes(language, index + 1))
   const getLanguageArray = filtered.map((item) => (item.language));
 
-  const handleSelect = (event: any) => {
-    setSearchInput(event.target.value);
-    axios.get(URL_LANGUAGE)
-      .then((result) => {
-        setRepos(result.data.items);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
 
-  console.log(searchInput)
-  console.log(URL_LANGUAGE)
+  const filteredLanguage = (event: any) => {
+    setSearchInput(event.target.value);
+  }
+
+  useEffect(() => {
+
+    if (searchInput) {
+      axios.get(URL_LANGUAGE)
+        .then((result) => {
+
+          setRepos(result.data.items);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }, [URL_LANGUAGE, searchInput])
+
 
 
   return (
@@ -101,15 +107,14 @@ function App() {
         </TabList>
 
         <TabPanel>
-
-
           {getLanguageArray.length !== 0 ?
             getLanguageArray.map((item, i) =>
-              <button value={item} onClick={handleSelect}>
+              <button value={item} onClick={filteredLanguage}>
                 {item}
               </button>
             ) : ('')
           }
+
           <ul>
             {repos.length !== 0 ?
               repos.map((item, i) =>
