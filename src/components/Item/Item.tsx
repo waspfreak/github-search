@@ -31,25 +31,30 @@ export const Item: React.FC<ItemProps> = ({
   language,
   onClick,
   children,
-  ...props
 }) => {
 
   return (
 
     <List data-testid="item-id" key={id}>
-      <ImageContainer>
-        <ImageStyle alt={alt} width="100" src={src} />
-        <Stars><GoStar size="2em" style={{ color: '#ff9800' }} /> <span>{starts}</span> </Stars>
-      </ImageContainer>
+      {src && (
+        <ImageContainer>
+          <ImageStyle alt={alt} width="100" src={src} />
+          <Stars><GoStar size="2em" style={{ color: '#ff9800' }} /> <span>{starts}</span> </Stars>
+        </ImageContainer>
+      )}
+
       <ContainerInfo>
         <p><span>User: </span>{user}</p>
         <p><span>Repository:</span> <a href={url}>{name}</a></p>
         <p><span>Description:</span> {description}</p>
         <p><span>Language:</span> {language}</p>
       </ContainerInfo>
-      <div className="favorites" title="save to favs">
-        {children}
-      </div>
+      {children && (
+        <div className="favorites" title="save to favs">
+          {children}
+        </div>
+      )}
+
     </List >
 
   );

@@ -3,8 +3,10 @@ import axios from 'axios';
 
 import Item from "../src/components/Item/Item";
 import { Favorites } from '../src/components/Favorites/Favorites';
+import Header from '../src/components/Header/Header';
+import { Typography } from '../src/components/Typography/Typography';
 
-import { GoBookmark, GoMarkGithub } from "react-icons/go";
+import { GoBookmark } from "react-icons/go";
 import { RiBookmarkLine, RiBookmarkFill } from "react-icons/ri";
 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -69,7 +71,8 @@ function App() {
 
   return (
     <div className="App">
-      <h2><GoMarkGithub size="1.4em" style={{ color: '#33728f' }} />GITHUB Search Repositories</h2>
+
+      <Header />
 
       <Tabs>
         <TabList>
@@ -120,7 +123,8 @@ function App() {
         </TabPanel>
 
         <TabPanel>
-          <h2> Favorites repositories  </h2>
+          <Typography size="h2">Favorites repositories</Typography>
+
           <Favorites />
         </TabPanel>
       </Tabs>

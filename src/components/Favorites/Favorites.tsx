@@ -1,4 +1,5 @@
 import React from 'react';
+import Item from '../Item/Item';
 
 export const Favorites = () => {
 
@@ -16,13 +17,14 @@ export const Favorites = () => {
         <ul>
           {getArray.length <= 0 ? (<p>No Item</p>) : (
             favList.map((fav: any, i: number) => (
-              <li key={i}>
-                <p>{fav.id}</p>
-                <p>{fav.name}</p>
-                <p>Repository: <a href={fav.html_url}>{fav.name}</a></p>
-                <p>Description: {fav.description}</p>
-                <p>Language: {fav.language}</p>
-              </li>))
+              <Item
+                key={i}
+                id={fav.id}
+                description={fav.description}
+                name={fav.name}
+                url={fav.html_url}
+                language={fav.language}
+              />))
           )}
         </ul>
       </>
