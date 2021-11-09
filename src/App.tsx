@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
 //Ui Components
 import Item from "../src/components/Item/Item";
 import { Favorites } from '../src/components/Favorites/Favorites';
 import Header from '../src/components/Header/Header';
 import { Typography } from '../src/components/Typography/Typography';
-import { Button } from '../src/components/Button/Button';
 import { Filter } from '../src/components/Filter/Filter';
-
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-
 //Icons
 import { GoBookmark } from "react-icons/go";
 import { RiBookmarkLine, RiBookmarkFill } from "react-icons/ri";
-
+//Language
+import { TextConstants } from '../src/language/texts';
 
 import './App.css';
 
@@ -23,7 +20,6 @@ function App() {
 
   const [repos, setRepos] = useState<any[]>([]);
   const [searchInput, setSearchInput] = useState();
-  const [language, setLanguage] = useState(repos);
   const [favorites, setFavorites] = useState([] as Array<number>);
   const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
 
@@ -34,7 +30,6 @@ function App() {
     axios.get(URL)
       .then((response) => {
         setRepos(response.data.items);
-        setLanguage(response.data.items);
       })
       .catch(function (error) {
         console.log(error);
@@ -101,13 +96,15 @@ function App() {
 
       <Tabs>
         <TabList>
-          <Tab>List of repositories</Tab>
-          <Tab>Favorites <GoBookmark size="1.1em" style={{ color: '#33728f' }} /></Tab>
+          <Tab>{TextConstants.LIST_OF_REPOSITORY}</Tab>
+          <Tab>{TextConstants.FAVORITES} <GoBookmark size="1.1em" style={{ color: '#33728f' }} /></Tab>
         </TabList>
 
         <TabPanel>
+          {/* Filter Language */}
           <Filter onClick={filteredLanguage} />
 
+          {/* fet List of Items  */}
           <ul>
             {repos.length !== 0 ?
               repos.map((item, i) =>
@@ -144,14 +141,15 @@ function App() {
                   </div>
                 </>
               )
-              : <li>No items to show </li>
+              : <li>{TextConstants.NO_ITEMS_SHOW} </li>
             }
           </ul>
         </TabPanel>
 
         <TabPanel>
-          <Typography size="h2">Favorites repositories</Typography>
+          <Typography size="h2">{TextConstants.BOOKMARK_REPO}</Typography>
 
+          {/* Localstorage Bookmarks */}
           <Favorites />
         </TabPanel>
       </Tabs>

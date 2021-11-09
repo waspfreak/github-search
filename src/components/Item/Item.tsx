@@ -1,6 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { List, ImageStyle, ImageContainer, Stars, ContainerInfo } from './style';
 import { GoStar } from "react-icons/go";
+import { TextConstants } from '../../language/texts';
 
 export interface ItemProps {
   label?: string;
@@ -44,13 +45,13 @@ export const Item: React.FC<ItemProps> = ({
       )}
 
       <ContainerInfo>
-        <p><span>User: </span>{user}</p>
-        <p><span>Repository:</span> <a href={url}>{name}</a></p>
-        <p><span>Description:</span> {description}</p>
-        <p><span>Language:</span> {language}</p>
+        <p><span>{TextConstants.USER}</span>{user}</p>
+        <p><span>{TextConstants.REPOSITORY}</span> <a href={url}>{name}</a></p>
+        <p><span>{TextConstants.DESCRIPTION}</span> {description}</p>
+        <p><span>{TextConstants.LANGUAGE}</span> {language}</p>
       </ContainerInfo>
       {children && (
-        <div className="favorites" title="save to favs">
+        <div className="favorites" title={TextConstants.SAVE_TO_BOOKMARK_PAGE}>
           {children}
         </div>
       )}

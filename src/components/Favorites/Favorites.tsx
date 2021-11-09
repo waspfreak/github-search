@@ -1,5 +1,6 @@
 import React from 'react';
 import Item from '../Item/Item';
+import { TextConstants } from '../../language/texts';
 
 export const Favorites = () => {
 
@@ -15,9 +16,10 @@ export const Favorites = () => {
     <div>
       <>
         <ul>
-          {getArray.length <= 0 ? (<p>No Item</p>) : (
+          {getArray.length <= 0 ? (<p>{TextConstants.NO_ITEMS_BOOKMARKED_YET} </p>) : (
             favList.map((fav: any, i: number) => (
               <Item
+                user={fav.owner.login}
                 key={i}
                 id={fav.id}
                 description={fav.description}
