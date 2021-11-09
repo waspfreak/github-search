@@ -17,18 +17,19 @@ import './App.css';
 function App() {
 
   const [repos, setRepos] = useState<any[]>([]);
-  //const [searchInput, setSearchInput] = useState(repos);
+  const [searchInput, setSearchInput] = useState(repos);
+  const [language, setLanguage] = useState(repos);
   const [favorites, setFavorites] = useState([] as Array<number>);
   const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
 
-  const URL = `https://api.github.com/search/repositories?q=created:2021-10-26&sort=stars&order=desc&per_page=20`;
-  //const URL_LANGUAGE = `https://api.github.com/search/repositories?q=created:2021-10-26&language:${searchInput}&sort
+  const URL = `https://api.github.com/search/repositories?q=created:2021-11-01&sort=stars&order=desc&per_page=30`;
+  const URL_LANGUAGE = `https://api.github.com/search/repositories?q=created:2021-10-26&q=language:${searchInput}&sort`;
 
   useEffect(() => {
     axios.get(URL)
       .then((response) => {
         setRepos(response.data.items);
-
+        setLanguage(response.data.items);
       })
       .catch(function (error) {
         console.log(error);
@@ -68,6 +69,25 @@ function App() {
     }
   }
 
+  //Try get languages and filter
+  const getLanguage = language.map((item) => item.language);
+  const filtered = language.filter(({ language }, index) => !getLanguage.includes(language, index + 1))
+  const getLanguageArray = filtered.map((item) => (item.language));
+
+  const handleSelect = (event: any) => {
+    setSearchInput(event.target.value);
+    axios.get(URL_LANGUAGE)
+      .then((result) => {
+        setRepos(result.data.items);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  console.log(searchInput)
+  console.log(URL_LANGUAGE)
+
 
   return (
     <div className="App">
@@ -81,6 +101,15 @@ function App() {
         </TabList>
 
         <TabPanel>
+
+
+          {getLanguageArray.length !== 0 ?
+            getLanguageArray.map((item, i) =>
+              <button value={item} onClick={handleSelect}>
+                {item}
+              </button>
+            ) : ('')
+          }
           <ul>
             {repos.length !== 0 ?
               repos.map((item, i) =>
