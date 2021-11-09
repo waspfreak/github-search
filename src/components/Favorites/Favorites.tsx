@@ -18,15 +18,18 @@ export const Favorites = () => {
         <ul>
           {getArray.length <= 0 ? (<p>{TextConstants.NO_ITEMS_BOOKMARKED_YET} </p>) : (
             favList.map((fav: any, i: number) => (
-              <Item
-                user={fav.owner.login}
-                key={i}
-                id={fav.id}
-                description={fav.description}
-                name={fav.name}
-                url={fav.html_url}
-                language={fav.language}
-              />))
+              <div key={i}>
+                <Item
+                  user={fav.owner.login}
+                  key={i}
+                  id={fav.id}
+                  description={fav.description}
+                  name={fav.name}
+                  url={fav.html_url}
+                  language={fav.language}
+                />
+              </div>
+            ))
           )}
         </ul>
       </>

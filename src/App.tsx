@@ -18,30 +18,33 @@ import './App.css';
 
 function App() {
 
+
   const [repos, setRepos] = useState<any[]>([]);
   const [searchInput, setSearchInput] = useState();
   const [favorites, setFavorites] = useState([] as Array<number>);
   const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
 
-  const URL = `https://api.github.com/search/repositories?q=created:2021-11-01&sort=stars&order=desc&per_page=30`;
+  const URL = `https://api.github.com/search/repositories?q=created:2021-11-01&sort=stars&order=desc&per_page=10`;
   const URL_LANGUAGE = `https://api.github.com/search/repositories?q=created:2021-10-26&q=language:${searchInput}&sort`;
 
-  useEffect(() => {
-    axios.get(URL)
+
+  const getData = (url: any) => {
+    axios.get(url)
       .then((response) => {
         setRepos(response.data.items);
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [URL])
-
+  }
 
   useEffect(() => {
+    getData(URL)
+
     if (getArray !== 0) {
       setFavorites([...getArray])
     }
-  }, [])
+  }, [URL, getArray])
 
   //Add to Favorites
   const addFav = (props: any) => {
@@ -76,14 +79,7 @@ function App() {
 
   useEffect(() => {
     if (searchInput) {
-      axios.get(URL_LANGUAGE)
-        .then((result) => {
-
-          setRepos(result.data.items);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      getData(URL_LANGUAGE)
     }
   }, [URL_LANGUAGE, searchInput])
 
@@ -91,9 +87,7 @@ function App() {
 
   return (
     <div className="App">
-
       <Header />
-
       <Tabs>
         <TabList>
           <Tab>{TextConstants.LIST_OF_REPOSITORY}</Tab>
@@ -104,7 +98,7 @@ function App() {
           {/* Filter Language */}
           <Filter onClick={filteredLanguage} />
 
-          {/* fet List of Items  */}
+          {/* fetch List of Items  */}
           <ul>
             {repos.length !== 0 ?
               repos.map((item, i) =>
@@ -141,7 +135,7 @@ function App() {
                   </div>
                 </>
               )
-              : <li>{TextConstants.NO_ITEMS_SHOW} </li>
+              : <li key='0'>{TextConstants.NO_ITEMS_SHOW} </li>
             }
           </ul>
         </TabPanel>
@@ -149,7 +143,7 @@ function App() {
         <TabPanel>
           <Typography size="h2">{TextConstants.BOOKMARK_REPO}</Typography>
 
-          {/* Localstorage Bookmarks */}
+          {/* LocalStorage Bookmarks */}
           <Favorites />
         </TabPanel>
       </Tabs>
