@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react'
-import { List, ImageStyle } from './style';
+import { List, ImageStyle, ImageContainer, Stars, ContainerInfo } from './style';
 import { GoStar } from "react-icons/go";
 
 export interface ItemProps {
@@ -37,16 +37,16 @@ export const Item: React.FC<ItemProps> = ({
   return (
 
     <List data-testid="item-id" key={id}>
-      <div>
+      <ImageContainer>
         <ImageStyle alt={alt} width="100" src={src} />
-        <span><GoStar style={{ color: 'yellow' }} /> {starts} </span>
-      </div>
-      <div>
+        <Stars><GoStar size="2em" style={{ color: '#ff9800' }} /> <span>{starts}</span> </Stars>
+      </ImageContainer>
+      <ContainerInfo>
         <p><span>User: </span>{user}</p>
         <p><span>Repository:</span> <a href={url}>{name}</a></p>
         <p><span>Description:</span> {description}</p>
         <p><span>Language:</span> {language}</p>
-      </div>
+      </ContainerInfo>
       <div className="favorites" title="save to favs">
         {children}
       </div>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Item from "../src/components/Item/Item";
+import { Favorites } from '../src/components/Favorites/Favorites';
+
 import { GoBookmark, GoMarkGithub } from "react-icons/go";
 import { RiBookmarkLine, RiBookmarkFill } from "react-icons/ri";
 
@@ -97,11 +99,15 @@ function App() {
 
                         <RiBookmarkFill
                           onClick={() => addFav({ item, i })}
-                          style={{ color: 'blue' }}
+                          size="2em"
+                          style={{ color: '#ff5722' }}
                         ></RiBookmarkFill>
                       ) : (
-                        <RiBookmarkLine onClick={() => addFav({ item, i })}
-                          style={{ color: 'blue' }}></RiBookmarkLine>
+                        <RiBookmarkLine
+                          onClick={() => addFav({ item, i })}
+                          style={{ color: '#ff5722' }}
+                          size="2em"
+                        ></RiBookmarkLine>
                       )}
 
                     </Item>
@@ -115,11 +121,12 @@ function App() {
 
         <TabPanel>
           <h2> Favorites repositories  </h2>
+          <Favorites />
         </TabPanel>
       </Tabs>
 
 
-    </div>
+    </div >
   );
 }
 
